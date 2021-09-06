@@ -61,7 +61,7 @@
     position: absolute;
     bottom: 20px;
   }
-
+  
   .btn:focus {
     outline: none;
     box-shadow: none;

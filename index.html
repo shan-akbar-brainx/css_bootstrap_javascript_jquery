@@ -9,7 +9,43 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script>
+            function showPlan(caller){
+                if(caller.value == "4"){
+                    document.getElementById("box_item_3").innerHTML = "4 Meals";
+                    document.getElementById("box_item_5").innerHTML = "$11.49 / Meal";
+                    document.getElementById("box_item_6").value = "Select The 4 Meal Plan";
+                }else if (caller.value == "6"){
+                    document.getElementById("box_item_3").innerHTML = "6 Meals";
+                    document.getElementById("box_item_5").innerHTML = "$9.49 / Meal";
+                    document.getElementById("box_item_6").value = "Select The 6 Meal Plan";
+                }else if (caller.value == "8"){
+                    document.getElementById("box_item_3").innerHTML = "8 Meals";
+                    document.getElementById("box_item_5").innerHTML = "$9.29 / Meal";
+                    document.getElementById("box_item_6").value = "Select The 8 Meal Plan";
+                }else if (caller.value == "10"){
+                    document.getElementById("box_item_3").innerHTML = "10 Meals";
+                    document.getElementById("box_item_5").innerHTML = "$8.99 / Meal";
+                    document.getElementById("box_item_6").value = "Select The 10 Meal Plan";
+                }else if (caller.value == "12"){
+                    document.getElementById("box_item_3").innerHTML = "12 Meals";
+                    document.getElementById("box_item_5").innerHTML = "$8.49 / Meal";
+                    document.getElementById("box_item_6").value = "Select The 12 Meal Plan";
+                }
+            }
+
             $(document).ready(function(){
+                var windowWidth = $(window).width();
+                if(windowWidth < 1090){
+                        $('#mealplans').removeClass('d-flex');
+                        $('#mealplans').addClass('d-none');
+                        $('#mealplanslg').removeClass('d-none');
+                        $('#mealplanslg').addClass('d-flex');
+                    }else{
+                        $('#mealplans').removeClass('d-none');
+                        $('#mealplans').addClass('d-flex');
+                        $('#mealplanslg').removeClass('d-flex');
+                        $('#mealplanslg').addClass('d-none');
+                    }
                 $(".meal-button").mouseenter(function(){
                     $(this).animate({left: '+=2px', bottom: '+=2px'},'fast');
                 });
@@ -25,7 +61,7 @@
                     $(this).css("box-shadow", "none");
                 });
                 $(window).on('resize', function(){
-                    var windowWidth = $(window).width();
+                    windowWidth = $(window).width();
                     
                     if(windowWidth < 1090){
                         $('#mealplans').removeClass('d-flex');
@@ -70,31 +106,31 @@
                     <h3 class="font-weight-bold">4 Meals</h3>
                     <small class="text-secondary">per week</small>
                     <p class="font-weight-bold mt-3">$11.49 / meal</p>
-                    <input class="meal-button" type="button" value="Choose">
+                    <input class="meal-button" type="button" onclick = "window.location.href='day.html';" value="Choose">
                 </div>
                 <div class="meal-box d-flex flex-column align-items-center justify-content-center ml-4">
-                    <h3 class="font-weight-bold">4 Meals</h3>
+                    <h3 class="font-weight-bold">6 Meals</h3>
                     <small class="text-secondary">per week</small>
-                    <p class="font-weight-bold mt-3">$11.49 / meal</p>
-                    <input class="meal-button" type="button" value="Choose">
+                    <p class="font-weight-bold mt-3">$9.49 / meal</p>
+                    <input class="meal-button" type="button" onclick = "window.location.href='day.html';" value="Choose">
                 </div>
                 <div class="meal-box d-flex flex-column align-items-center justify-content-center ml-4">
-                    <h3 class="font-weight-bold">4 Meals</h3>
+                    <h3 class="font-weight-bold">8 Meals</h3>
                     <small class="text-secondary">per week</small>
-                    <p class="font-weight-bold mt-3">$11.49 / meal</p>
-                    <input class="meal-button" type="button" value="Choose">
+                    <p class="font-weight-bold mt-3">$9.29 / meal</p>
+                    <input class="meal-button" type="button" onclick = "window.location.href='day.html';" value="Choose">
                 </div>
                 <div class="meal-box d-flex flex-column align-items-center justify-content-center ml-4">
-                    <h3 class="font-weight-bold">4 Meals</h3>
+                    <h3 class="font-weight-bold">10 Meals</h3>
                     <small class="text-secondary">per week</small>
-                    <p class="font-weight-bold mt-3">$11.49 / meal</p>
-                    <input class="meal-button" type="button" value="Choose">
+                    <p class="font-weight-bold mt-3">$8.99 / meal</p>
+                    <input class="meal-button" type="button" onclick = "window.location.href='day.html';" value="Choose">
                 </div>
                 <div class="meal-box d-flex flex-column align-items-center justify-content-center ml-4">
-                    <h3 class="font-weight-bold">4 Meals</h3>
+                    <h3 class="font-weight-bold">12 Meals</h3>
                     <small class="text-secondary">per week</small>
-                    <p class="font-weight-bold mt-3">$11.49 / meal</p>
-                    <input class="meal-button" type="button" value="Choose">
+                    <p class="font-weight-bold mt-3">$8.49 / meal</p>
+                    <input class="meal-button" type="button" onclick = "window.location.href='day.html';" value="Choose">
                 </div>
                 
             </div>
@@ -102,16 +138,16 @@
             <div id="mealplanslg" class="meal-box-lg d-none flex-column align-items-center justify-content-center center">
                 <p id="box_item_1">Meals per week:</p>
                 <div id="box_item_2" class="btn-group w-100">
-                    <button type="button" class="btn border">4</button>
-                    <button type="button" class="btn border">6</button>
-                    <button type="button" class="btn border">8</button>
-                    <button type="button" class="btn border">10</button>
-                    <button type="button" class="btn border">12</button>
+                    <button type="button" onclick="showPlan(this)" class="btn border" value ="4">4</button>
+                    <button type="button" onclick="showPlan(this)" class="btn border" value ="6">6</button>
+                    <button type="button" onclick="showPlan(this)" class="btn border" value ="8">8</button>
+                    <button type="button" onclick="showPlan(this)" class="btn border" value ="10">10</button>
+                    <button type="button" onclick="showPlan(this)" class="btn border" value ="12">12</button>
                 </div>
                 <h3 id="box_item_3" class="font-weight-bold">4 Meals</h3>
                 <small id="box_item_4" class="text-secondary">per week</small>
                 <p id="box_item_5"  class="font-weight-bold mt-3">$11.49 / meal</p>
-                <input class="meal-button" type="button" value="Select The 4 Meal Plan">
+                <input id="box_item_6" class="meal-button" type="button" onclick = "window.location.href='day.html';" value="Select The 4 Meal Plan">
             </div>
         </div>
     </body>
