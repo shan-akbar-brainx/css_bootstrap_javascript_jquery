@@ -1,0 +1,119 @@
+<html>
+    <head> <title>Meals</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="freshly-style-sheet-3.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="mealsdata.js"></script>
+
+        <script>
+            $(document).ready(function(){
+                
+                let arrLength = meals.length;
+                var mealDiv = undefined;
+                var mealImg = undefined;
+                var mealTitle = undefined;
+                var mealDesc = undefined;
+                var otherDesc = undefined;
+                var calsDesc = undefined;
+                var carbDesc = undefined;
+                var addBtn = undefined;
+                var mainDiv = document.getElementById("main_div");
+
+                for(let i=0 ; i < arrLength ; i++){
+                    
+                    mealDiv = document.createElement("DIV");
+                    mealDiv.classList.add("meal-div");
+                    mealImg = document.createElement("IMG");
+                    mealImg.src = meals[i].img;
+                    mealDiv.appendChild(mealImg);
+
+                    mealTitle = document.createElement("P");
+                    mealTitle.classList.add("title");
+                    mealTitle.innerHTML = meals[i].title;
+                    mealDiv.appendChild(mealTitle);
+
+                    mealDesc = document.createElement("P");
+                    mealDesc.classList.add("desc");
+                    mealDesc.innerHTML = meals[i].desc;
+                    mealDiv.appendChild(mealDesc);
+
+                    otherDesc = document.createElement("SMALL");
+                    otherDesc.classList.add("desc-2");
+                    otherDesc.innerHTML = meals[i].other_desc;
+                    mealDiv.appendChild(otherDesc);
+
+                    calsDesc = document.createElement("SMALL");
+                    calsDesc.classList.add("cals");
+                    calsDesc.innerHTML = meals[i].cals + "Cals";
+                    mealDiv.appendChild(calsDesc);
+
+                    carbDesc = document.createElement("SMALL");
+                    carbDesc.classList.add("carbs");
+                    carbDesc.innerHTML = meals[i].carb + "g Carbs";
+                    mealDiv.appendChild(carbDesc);
+
+                    addBtn = document.createElement("INPUT");
+                    addBtn.classList.add("add-btn");
+                    addBtn.type = "button";
+                    addBtn.value = "+ Add";
+                    addBtn.addEventListener("click", function(){
+                        
+                        var cartItem = document.createElement("DIV");
+                        cartItem.classList.add("cart-div");
+
+                        var itemImg = document.createElement("IMG");
+                        itemImg.src = this.parentElement.firstChild.src;
+                        cartItem.appendChild(itemImg);
+
+                        var itemTitle = document.createElement("SPAN");
+                        itemTitle.classList.add("meal-title");
+                        itemTitle.innerHTML = this.parentElement.firstChild.nextSibling.innerHTML;
+                        cartItem.appendChild(itemTitle);
+                        
+                        var itemBtn= document.createElement("INPUT");
+                        itemBtn.type = "button";
+                        itemBtn.value = "+";
+                        itemBtn.addEventListener("click", function(){
+                           
+                        });
+
+                        itemBtn.classList.add("cart-btn-add");
+                        cartItem.appendChild(itemBtn);
+
+                        itemBtn = document.createElement("INPUT");
+                        itemBtn.type = "button";
+                        itemBtn.value = "-";
+                        itemBtn.addEventListener("click", function(){
+                            this.parentElement.remove();
+                        });
+
+                        itemBtn.classList.add("cart-btn-remove");
+                        cartItem.appendChild(itemBtn);
+                        
+                        var cart = document.getElementById("cart");
+                        cart.appendChild(cartItem);
+                    });
+
+                    mealDiv.appendChild(addBtn);
+                    mainDiv.appendChild(mealDiv);
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <aside>
+                <div id = "cart">
+
+                </div>
+            </aside>
+            <div id="main_div">
+            
+            </div>
+        </div>
+    </body>
+</html>
