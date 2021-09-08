@@ -1,7 +1,12 @@
+body{
+    background-color: #f9f9ec;
+}
+
 ul {
     list-style: none;
     position: relative;
 }
+
 li {
     border: 1px solid black;
     padding: 10px;
@@ -41,12 +46,13 @@ li:hover{
     margin-right: -10px;
 }
 #main_div{
-    width: 100%;
     text-align: center;
     margin: auto;
     scroll-behavior: auto;
-    max-width: 50%;
+    max-width: 500px;
 }
+
+
 #next:hover{
     background-color: #002db3;
 }
@@ -62,4 +68,10 @@ li:hover{
     height: 300px;
     margin-top: 50px;
     margin-bottom: 50px;
+}
+
+.fa-fire-alt {
+    color:red;
+    float: right;
+    font-family: sans-serif;
 }

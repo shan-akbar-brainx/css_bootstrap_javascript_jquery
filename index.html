@@ -9,27 +9,37 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script>
+
+            function redirect(caller){
+                window.location.href = "day.html?meals=" + caller.value;
+            }
+
             function showPlan(caller){
                 if(caller.value == "4"){
                     document.getElementById("box_item_3").innerHTML = "4 Meals";
                     document.getElementById("box_item_5").innerHTML = "$11.49 / Meal";
-                    document.getElementById("box_item_6").value = "Select The 4 Meal Plan";
+                    document.getElementById("box_item_6").innerHTML = "Select The 4 Meal Plan";
+                    document.getElementById("box_item_6").value = '4';
                 }else if (caller.value == "6"){
                     document.getElementById("box_item_3").innerHTML = "6 Meals";
                     document.getElementById("box_item_5").innerHTML = "$9.49 / Meal";
-                    document.getElementById("box_item_6").value = "Select The 6 Meal Plan";
+                    document.getElementById("box_item_6").innerHTML = "Select The 6 Meal Plan";
+                    document.getElementById("box_item_6").value = '6';
                 }else if (caller.value == "8"){
                     document.getElementById("box_item_3").innerHTML = "8 Meals";
                     document.getElementById("box_item_5").innerHTML = "$9.29 / Meal";
-                    document.getElementById("box_item_6").value = "Select The 8 Meal Plan";
+                    document.getElementById("box_item_6").innerHTML = "Select The 8 Meal Plan";
+                    document.getElementById("box_item_6").value = '8';
                 }else if (caller.value == "10"){
                     document.getElementById("box_item_3").innerHTML = "10 Meals";
                     document.getElementById("box_item_5").innerHTML = "$8.99 / Meal";
-                    document.getElementById("box_item_6").value = "Select The 10 Meal Plan";
+                    document.getElementById("box_item_6").innerHTML = "Select The 10 Meal Plan";
+                    document.getElementById("box_item_6").value = '10';
                 }else if (caller.value == "12"){
                     document.getElementById("box_item_3").innerHTML = "12 Meals";
                     document.getElementById("box_item_5").innerHTML = "$8.49 / Meal";
-                    document.getElementById("box_item_6").value = "Select The 12 Meal Plan";
+                    document.getElementById("box_item_6").innerHTML = "Select The 12 Meal Plan";
+                    document.getElementById("box_item_6").value = '12';
                 }
             }
 
@@ -106,31 +116,31 @@
                     <h3 class="font-weight-bold">4 Meals</h3>
                     <small class="text-secondary">per week</small>
                     <p class="font-weight-bold mt-3">$11.49 / meal</p>
-                    <input class="meal-button" type="button" onclick = "window.location.href='day.html';" value="Choose">
+                    <input class="meal-button" type="button" onclick = "window.location.href='day.html?meals=4';" value="Choose">
                 </div>
                 <div class="meal-box d-flex flex-column align-items-center justify-content-center ml-4">
                     <h3 class="font-weight-bold">6 Meals</h3>
                     <small class="text-secondary">per week</small>
                     <p class="font-weight-bold mt-3">$9.49 / meal</p>
-                    <input class="meal-button" type="button" onclick = "window.location.href='day.html';" value="Choose">
+                    <input class="meal-button" type="button" onclick = "window.location.href='day.html?meals=6';"  value="Choose">
                 </div>
                 <div class="meal-box d-flex flex-column align-items-center justify-content-center ml-4">
                     <h3 class="font-weight-bold">8 Meals</h3>
                     <small class="text-secondary">per week</small>
                     <p class="font-weight-bold mt-3">$9.29 / meal</p>
-                    <input class="meal-button" type="button" onclick = "window.location.href='day.html';" value="Choose">
+                    <input class="meal-button" type="button" onclick = "window.location.href='day.html?meals=8';"  value="Choose">
                 </div>
                 <div class="meal-box d-flex flex-column align-items-center justify-content-center ml-4">
                     <h3 class="font-weight-bold">10 Meals</h3>
                     <small class="text-secondary">per week</small>
                     <p class="font-weight-bold mt-3">$8.99 / meal</p>
-                    <input class="meal-button" type="button" onclick = "window.location.href='day.html';" value="Choose">
+                    <input class="meal-button" type="button" onclick = "window.location.href='day.html?meals=10';"  value="Choose">
                 </div>
                 <div class="meal-box d-flex flex-column align-items-center justify-content-center ml-4">
                     <h3 class="font-weight-bold">12 Meals</h3>
                     <small class="text-secondary">per week</small>
                     <p class="font-weight-bold mt-3">$8.49 / meal</p>
-                    <input class="meal-button" type="button" onclick = "window.location.href='day.html';" value="Choose">
+                    <input class="meal-button" type="button" onclick = "window.location.href='day.html?meals=12';"  value="Choose">
                 </div>
                 
             </div>
@@ -147,7 +157,7 @@
                 <h3 id="box_item_3" class="font-weight-bold">4 Meals</h3>
                 <small id="box_item_4" class="text-secondary">per week</small>
                 <p id="box_item_5"  class="font-weight-bold mt-3">$11.49 / meal</p>
-                <input id="box_item_6" class="meal-button" type="button" onclick = "window.location.href='day.html';" value="Select The 4 Meal Plan">
+                <button id="box_item_6" class="meal-button" type="button" onclick = "redirect(this)" value="4">Select The 4 Meal Plan</button>
             </div>
         </div>
     </body>

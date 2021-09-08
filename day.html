@@ -8,7 +8,15 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
         <script>
+
+            function redirect(caller){
+                const urlParams = new URLSearchParams(window.location.search);
+                const meals = urlParams.get('meals');
+                window.location.href = "meals.html?meals=" + meals;
+            }
+
             $(document).ready(function(){
                 var date = Date.now();
                 var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -18,10 +26,18 @@
                 var day = days[newDate.getDay()];
                 var dateNo = newDate.getDate();
                 var itr = 1;
-                $("ul").children().each(function () {
+
+                $("ul").children().each(function (index) {
                     var fullDate = "<b>"+day+"</b>, "+month+" "+dateNo;
                     $(this).html(fullDate);
+
+                        if(index == 0){
+                            var flameIcon = '<i class="fal fa-fire-alt"> 4 spots left</i>';
+                            $(this).append(flameIcon);
+                            $(this).addClass("active");
+                        }
                     
+                
                     if(itr == 2){
                         date = date + 5*24*60*60*1000;
                     }else{
@@ -50,25 +66,26 @@
             });
         </script>
     </head>
-    <body class="container">
-        
-        <div id="main_div">
-            <h1 id="first_heading">Choose A Delivery Day</h1>
-            <div id="div_list">
-                <ul>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                </ul>
+    <body>
+        <div class="container">
+            <div id="main_div">
+                <h1 id="first_heading">Choose A Delivery Day</h1>
+                <div id="div_list">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+                <small>Scroll for more delivery dates</small>
+                <input type="button" id="next" onclick = "redirect(this)" value="Next">
+                <small id="small_p" class="font-weight-bold"></small>
             </div>
-            <small>Scroll for more delivery dates</small>
-            <input type="button" id="next" onclick = "window.location.href='meals.html';" value="Next">
-            <small id="small_p" class="font-weight-bold"></small>
         </div>
     </body>
 </html>

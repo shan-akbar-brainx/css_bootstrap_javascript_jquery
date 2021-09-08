@@ -10,6 +10,46 @@
         <script src="mealsdata.js"></script>
 
         <script>
+            
+            function addToCart(Id){
+
+                const mealObj = meals.find(({id}) => id===Id);
+                var cartItem = document.createElement("DIV");
+                cartItem.classList.add("cart-div");
+
+                var itemImg = document.createElement("IMG");
+                var imgDiv = document.createElement("DIV");
+                imgDiv.appendChild(itemImg);
+                itemImg.src = mealObj.img;
+                cartItem.appendChild(itemImg);
+
+                var itemTitle = document.createElement("DIV");
+                itemTitle.classList.add("meal-title");
+                itemTitle.innerHTML = mealObj.title;
+                cartItem.appendChild(itemTitle);
+
+                var btnDiv = document.createElement("DIV");
+                btnDiv.classList.add("cart-buttons");
+                var addBtnDiv = document.createElement("DIV");
+                addBtnDiv.innerHTML = "+";
+                addBtnDiv.addEventListener("click", function(){
+                    addToCart(Id);
+                });
+
+                btnDiv.appendChild(addBtnDiv);
+                var removeBtnDiv = document.createElement("DIV");
+                removeBtnDiv.innerHTML = "-";
+                removeBtnDiv.addEventListener("click", function(){
+                    this.parentElement.parentElement.remove();
+                });
+
+                btnDiv.appendChild(removeBtnDiv);
+                cartItem.appendChild(btnDiv);
+                var cart = document.getElementById("cart");
+                cart.appendChild(cartItem);
+            }
+
+
             $(document).ready(function(){
                 
                 let arrLength = meals.length;
@@ -26,6 +66,7 @@
                 for(let i=0 ; i < arrLength ; i++){
                     
                     mealDiv = document.createElement("DIV");
+                    mealDiv.id = meals[i].id;
                     mealDiv.classList.add("meal-div");
                     mealImg = document.createElement("IMG");
                     mealImg.src = meals[i].img;
@@ -61,47 +102,14 @@
                     addBtn.type = "button";
                     addBtn.value = "+ Add";
                     addBtn.addEventListener("click", function(){
-                        
-                        var cartItem = document.createElement("DIV");
-                        cartItem.classList.add("cart-div");
-
-                        var itemImg = document.createElement("IMG");
-                        itemImg.src = this.parentElement.firstChild.src;
-                        cartItem.appendChild(itemImg);
-
-                        var itemTitle = document.createElement("SPAN");
-                        itemTitle.classList.add("meal-title");
-                        itemTitle.innerHTML = this.parentElement.firstChild.nextSibling.innerHTML;
-                        cartItem.appendChild(itemTitle);
-                        
-                        var itemBtn= document.createElement("INPUT");
-                        itemBtn.type = "button";
-                        itemBtn.value = "+";
-                        itemBtn.addEventListener("click", function(){
-                           
-                        });
-
-                        itemBtn.classList.add("cart-btn-add");
-                        cartItem.appendChild(itemBtn);
-
-                        itemBtn = document.createElement("INPUT");
-                        itemBtn.type = "button";
-                        itemBtn.value = "-";
-                        itemBtn.addEventListener("click", function(){
-                            this.parentElement.remove();
-                        });
-
-                        itemBtn.classList.add("cart-btn-remove");
-                        cartItem.appendChild(itemBtn);
-                        
-                        var cart = document.getElementById("cart");
-                        cart.appendChild(cartItem);
+                            addToCart(meals[i].id);
                     });
 
                     mealDiv.appendChild(addBtn);
                     mainDiv.appendChild(mealDiv);
                 }
             });
+
         </script>
     </head>
     <body>

@@ -1,3 +1,6 @@
+body{
+  background-color: #f9f9ec;
+}
 div.meal-div {
   margin: 10px;
   border: 1px solid #ccc;
@@ -5,6 +8,7 @@ div.meal-div {
   width: 350px;
   height: 380px;
   transition: background-color 0.3s ease;
+  cursor: pointer;
 }
 
 div.meal-div:hover {
@@ -75,50 +79,63 @@ div.meal-div img {
 .add-btn:hover{
   background-color: #0033cc;
 }
+
 aside {
   width: 20%;
   height: 100%;
   float: right;
   background-color: #f2f2f2;
 }
+
 #cart{
   overflow-y: auto;
-  height: 100%
+  height: 100%;
 }
 #main_div{
   overflow-y: auto;
   height: 100%;
 }
 
-div.cart-div {
+.cart-div {
   display: flex;
   margin: 10px;
   border: 1px solid #ccc;
   width: 350px;
   height: 110px;
   background-color: white;
-
+  align-items: center;
 }
 
-div.cart-div:hover {
+.cart-div:hover {
   background-color: #f2f2f2;
+  cursor: pointer;
 }
 
-div.cart-div img {
+.cart-div img {
   width: 80px;
   height: 70px;
   margin: 20px;
   box-shadow: 0 0 20px gray;
 }
 .meal-title{
-  display: inline-block;
   font-size: 16px;
   font-weight: 500;
-  align-self: center;
+  width: 200px;
 }
-.cart-btn-add{
-  
+
+.cart-buttons{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.cart-btn-remove{
-  
+.cart-buttons > div{
+  text-align: center;
+  font-weight: 700;
+  font-size: 36px;
+  width: 55px;
+  height: 50px;
+}
+.cart-buttons > div:hover{
+  background-color: white;
+  cursor: pointer;
 }
