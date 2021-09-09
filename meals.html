@@ -2,20 +2,81 @@
     <head> <title>Meals</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="freshly-style-sheet-3.css">
+        
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
         <script src="mealsdata.js"></script>
-
+        <link rel="stylesheet" href="freshly-style-sheet-3.css">
+        
         <script>
-            
+            const cartItems = [];
+            var mealsNumber = 0;
+            var mealsCount = 0;
+
+            function checkout(){
+                const mealCount = {};
+
+              $("#cart").children().each(function (index){
+                  if(index){//skipping first item as it is not a meal (hidden message)
+                    if(mealCount[$(this).attr("data-id")]){
+                        mealCount[$(this).attr("data-id")]++;
+                    }else{
+                        mealCount[$(this).attr("data-id")] = 1;
+                    }
+                  }
+              });
+              localStorage.setItem('mealCount', JSON.stringify(mealCount));
+              window.location.href = "checkout.html";
+            }
+
+            function mealsValidation(){
+
+                if( mealsCount == mealsNumber){
+                    
+                    $("#meal_counter").css("color","#0066ff");
+                    $("#meal_count_message").html('<i class="fas fa-check"></i><span> All Set!</span>');
+                    $("#next").prop('disabled', false);
+                }
+                
+                if(mealsCount > mealsNumber){
+                    
+                    $("#meal_counter").css("color", "red");
+                    $("#meal_count_message").text('Remove '+ (mealsCount-mealsNumber) + " meals to continue.");
+                    $("#next").prop('disabled', true);
+                }
+
+                if(mealsCount < mealsNumber){
+                    
+                    $("#meal_counter").css("color", "red");
+                    $("#meal_count_message").text('Add '+ (mealsNumber - mealsCount) + " meals to continue.");
+                    $("#next").prop('disabled', true);
+                }
+
+            }
+            function setMessages(){
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const meals = urlParams.get('meals');
+                mealsNumber = meals;
+                const day = urlParams.get('day');
+                const month = urlParams.get('month');
+                const dateNo = urlParams.get('dateNo');
+                var deliveryDate = "My delivery for: <b>" + day + ", " + month + " " + dateNo;
+                $("#date_message").html(deliveryDate);
+                $("#meals_count").text("/" + meals);
+                $("#meal_count_message").text("Add " + meals + " meals to continue.")
+
+            }
+
             function addToCart(Id){
 
                 const mealObj = meals.find(({id}) => id===Id);
                 var cartItem = document.createElement("DIV");
                 cartItem.classList.add("cart-div");
+                cartItem.dataset.id = Id;
 
                 var itemImg = document.createElement("IMG");
                 var imgDiv = document.createElement("DIV");
@@ -40,18 +101,41 @@
                 var removeBtnDiv = document.createElement("DIV");
                 removeBtnDiv.innerHTML = "-";
                 removeBtnDiv.addEventListener("click", function(){
+
                     this.parentElement.parentElement.remove();
+                    mealsCount -= 1;
+                    $("#meal_counter").text(mealsCount)
+                    mealsValidation();
+
+                    if(mealsCount == 0){
+                        $("#cart_message").show();
+                    }else{
+                        $("#cart_message").hide();
+                    }
+                    
                 });
 
                 btnDiv.appendChild(removeBtnDiv);
                 cartItem.appendChild(btnDiv);
                 var cart = document.getElementById("cart");
+                
                 cart.appendChild(cartItem);
-            }
+                mealsCount += 1;
+                $("#meal_counter").text(mealsCount)
+
+                mealsValidation();
+
+                if(mealsCount == 0){
+                        $("#cart_message").show();
+                    }else{
+                        $("#cart_message").hide();
+                    }
+                }
 
 
             $(document).ready(function(){
-                
+                setMessages();
+
                 let arrLength = meals.length;
                 var mealDiv = undefined;
                 var mealImg = undefined;
@@ -63,11 +147,11 @@
                 var addBtn = undefined;
                 var mainDiv = document.getElementById("main_div");
 
-                for(let i=0 ; i < arrLength ; i++){
+                for (let i=0 ; i < arrLength ; i++) {
                     
                     mealDiv = document.createElement("DIV");
                     mealDiv.id = meals[i].id;
-                    mealDiv.classList.add("meal-div");
+                    mealDiv.classList.add("meal-div", "col-12", "col-md-6", "col-lg-4", "col-xl-3");
                     mealImg = document.createElement("IMG");
                     mealImg.src = meals[i].img;
                     mealDiv.appendChild(mealImg);
@@ -114,12 +198,29 @@
     </head>
     <body>
         <div class="container-fluid">
-            <aside>
-                <div id = "cart">
-
+            <div id="cart_wrapper">
+                <div id="delivery_date">
+                    <div>
+                        <span id="date_message"></span>
+                    </div>
                 </div>
-            </aside>
-            <div id="main_div">
+               
+                <div id = "cart">
+                    <p id="cart_message" class="text-center mt-5 pt-5">Get started by adding your meals.</p>
+                </div>
+                <div id = "meal_count_desc">
+                    <div>
+                        <span id="meal_counter">0</span><span id="meals_count"></span>
+                    </div>
+                    <div class="btn-div">
+                        <button class = "checkout-btn" type="button" id="next" onclick="checkout()" disabled>Next</button>
+                    </div>
+                    <div>
+                        <span id="meal_count_message"></span>
+                    </div>
+                </div>
+            </div>
+            <div id="main_div" class="row">
             
             </div>
         </div>

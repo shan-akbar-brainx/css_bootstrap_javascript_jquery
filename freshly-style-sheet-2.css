@@ -1,5 +1,5 @@
 body{
-    background-color: #f9f9ec;
+    background-color: #f9f9ec !important;
 }
 
 ul {
@@ -17,14 +17,16 @@ li {
     transition: left .3s linear;
     text-align: left;
     width: 95%;
+    background-color: white;
 }
 li:hover{
     left: 10px;
 }
 .active{
     box-shadow: 0 0 0 3px skyblue;
-    left: 10px;
-    border-left: 10px solid #1a83fa;
+    left: 5px;
+    border-left: 8px solid #1a83fa;
+    background-color: #f9f9ec;
 }
 
 #next{
@@ -41,6 +43,10 @@ li:hover{
     margin-top: 30px;
     margin-bottom: 20px;
 }
+
+#next:hover{
+    background-color: #002db3;
+}
 .margin-style{
     margin-left: 10px;
     margin-right: -10px;
@@ -50,11 +56,6 @@ li:hover{
     margin: auto;
     scroll-behavior: auto;
     max-width: 500px;
-}
-
-
-#next:hover{
-    background-color: #002db3;
 }
 
 #first_heading{

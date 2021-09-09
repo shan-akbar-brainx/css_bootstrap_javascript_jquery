@@ -8,6 +8,48 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="mealsdata.js"></script>
+        <script>
+            $(document).ready(function(){
+                var reterivedObject = localStorage.getItem("mealCount");
+                var mealsCount = JSON.parse(reterivedObject);
+
+                var myMeals = document.getElementById("meals_count");
+                for (var mealId in mealsCount){
+
+                    const mealObj = meals.find(({id}) => id===mealId);
+                    
+                    var mealItem = document.createElement("DIV");
+                    mealItem.classList.add("meal-div");
+                    
+                    var mealCount = document.createElement("DIV");
+                    mealCount .classList.add("meal-count");
+                    mealCount.innerHTML = mealsCount[mealId];
+                    mealItem.appendChild(mealCount);
+
+                    var itemImg = document.createElement("IMG");
+                    var imgDiv = document.createElement("DIV");
+                    imgDiv.appendChild(itemImg);
+                    itemImg.src = mealObj.img;
+                    mealItem.appendChild(itemImg);
+
+                    var itemTitleDesc = document.createElement("DIV");
+                    itemTitleDesc.classList.add("meal-title-desc");
+                    var itemTitle = document.createElement("P");
+                    itemTitle.classList.add("meal-title");
+                    itemTitle.innerHTML = mealObj.title;
+
+                    var itemDesc = document.createElement("SPAN");
+                    itemDesc.classList.add("meal-desc");
+                    itemDesc.innerHTML = mealObj.desc;
+                    itemTitleDesc.appendChild(itemTitle);
+                    itemTitleDesc.appendChild(itemDesc);
+                    mealItem.appendChild(itemTitleDesc);
+
+                    myMeals.appendChild(mealItem);
+                }
+            });
+        </script>
     </head>
     <body>
         <div class="container">
@@ -63,8 +105,8 @@
                                 <input type="text" class="form-control" id="state">  
                             </div>
                             <div class=" form-group col-3">
-                                <label for="phone" class="control-label font-weight-bold">Phone</label>
-                                <input type="tel" class="form-control" id="phone">  
+                                <label for="zip" class="control-label font-weight-bold">Zip</label>
+                                <input type="number" class="form-control" id="zip">  
                             </div>
                         </div>
                         <div class="form-row">
@@ -82,7 +124,7 @@
                         <div class="form-row">
                             <div class=" form-group col-12">
                                 <label for="email" class="control-label font-weight-bold" >Email(We require your email to send you receipts and order updates)</label>
-                                <input type="email" class="form-control" id="email" value="null">
+                                <input type="email" class="form-control" id="email" placeholder="username@example.com">
                             </div>
                         </div>
                         <div id="border_div"></div>
@@ -124,7 +166,10 @@
                         </div>
                     </div>
                     <h4 class="font-weight-bold mt-5">My Meals</h4>
-                    <div></div>
+
+                    <div id="meals_count">
+
+                    </div>
                 </div>
             </div>    
         </div>

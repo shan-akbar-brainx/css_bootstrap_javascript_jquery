@@ -1,23 +1,35 @@
 body{
   background-color: #f9f9ec;
 }
+
+#main_div{
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  height: 100%;
+}
+
 div.meal-div {
   margin: 10px;
   border: 1px solid #ccc;
   float: left;
-  width: 350px;
-  height: 380px;
+  max-width: 350px;
   transition: background-color 0.3s ease;
+  background-color: white;
   cursor: pointer;
 }
-
+@media only screen and (max-width: 974px) {
+  .meal-div {
+    max-width: 600px;
+    width: 100%;
+  }
+}
 div.meal-div:hover {
   background-color: #f2f2f2;
 }
 
 div.meal-div img {
   width: 100%;
-  height: auto;
 }
 
 .title{
@@ -80,20 +92,17 @@ div.meal-div img {
   background-color: #0033cc;
 }
 
-aside {
-  width: 20%;
+#cart_wrapper {
+  min-width: 344px;
   height: 100%;
   float: right;
   background-color: #f2f2f2;
 }
 
 #cart{
+  display: block;
   overflow-y: auto;
-  height: 100%;
-}
-#main_div{
-  overflow-y: auto;
-  height: 100%;
+  height: 80%;
 }
 
 .cart-div {
@@ -138,4 +147,55 @@ aside {
 .cart-buttons > div:hover{
   background-color: white;
   cursor: pointer;
+}
+#delivery_date{
+  display: flex;
+  height: 48px;
+  align-items: center;
+  background-color: white;
+  border: .5px solid #f7f7f7;
+  padding: 0;
+}
+#date_message{
+  margin-left: 10px;
+}
+#meal_count_desc{
+  display : flex;
+  flex-direction: column;
+  align-items: center;
+}
+.btn{
+  width: 300px;
+  margin-top: 20px;
+}
+#meal_count_message{
+  display: inline-block;
+  margin-top: 15px;
+}
+
+#meal_counter{
+  color: red;
+}
+.fa-check{
+  color:#0066ff;
+}
+#cart_message{
+  visibility: visible;
+}
+.btn-div{
+  width: 100%;
+}
+.checkout-btn{
+  display: block;
+  width: 100%;
+  background-color: #0066ff;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px 0;
+}
+.checkout-btn:disabled{
+  background-color: lightgray;
+  color:gray;
 }

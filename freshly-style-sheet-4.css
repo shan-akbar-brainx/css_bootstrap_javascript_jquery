@@ -37,3 +37,40 @@ body{
       display: block;
       overflow: auto;
   }
+
+  #meals_count{
+      display: flex;
+      flex-direction: column;
+  }
+
+  .meal-div{
+      display:flex;
+      background-color: white;
+      border: 1px solid lightgray;
+      align-items: center;
+    }
+
+  .meal-div img {
+    width: 70px;
+    height: 60px;
+    margin: 20px;
+  }
+  .meal-title-desc{
+
+  }
+  .meal-title{
+    font-weight: 500;
+    font-size: 18px;
+    margin: 10px 0 0;
+  }
+  .meal-desc{
+    color: #717171;
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  .meal-count{
+     margin-left: 20px;
+     font-weight: 500;
+     font-size: 18px;
+  }
