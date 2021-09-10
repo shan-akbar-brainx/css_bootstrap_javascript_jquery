@@ -1,12 +1,12 @@
 body{
     background-color: #f9f9ec;
 }
+#checkout_container{
+
+}
 #checkout_form{
     background-color: white;
-    padding: 30px 50px 20px;
-    max-width: 700px;
     border: 1px solid lightgray;
-    display: block;
     overflow: auto;
 }
 #border_div{
@@ -31,10 +31,9 @@ body{
   }
   #order_summary{
       background-color: white;
-      max-width: 500px;
+      
       padding: 20px;
       border: 1px solid lightgray;
-      display: block;
       overflow: auto;
   }
 
@@ -48,6 +47,7 @@ body{
       background-color: white;
       border: 1px solid lightgray;
       align-items: center;
+      padding: 10px;
     }
 
   .meal-div img {

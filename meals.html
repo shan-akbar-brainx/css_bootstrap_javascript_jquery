@@ -131,66 +131,94 @@
                         $("#cart_message").hide();
                     }
                 }
-
+                function adjustContent(windowWidth){
+                    if(windowWidth <= 767){
+                        $("#cart_wrapper").addClass("fixed-bottom");
+                        $("#cart").hide();
+                        $("#delivery_date").hide();
+                    }else{
+                        $("#cart_wrapper").removeClass("fixed-bottom");
+                        $("#cart").show();
+                        $("#delivery_date").show();
+                    }
+                }
 
             $(document).ready(function(){
+                var windowWidth = $(window).width();
+                adjustContent(windowWidth);
+                $(window).resize(function(){
+                    var windowWidth = $(window).width();
+                    adjustContent(windowWidth);
+                });
                 setMessages();
 
-                let arrLength = meals.length;
-                var mealDiv = undefined;
-                var mealImg = undefined;
-                var mealTitle = undefined;
-                var mealDesc = undefined;
-                var otherDesc = undefined;
-                var calsDesc = undefined;
-                var carbDesc = undefined;
-                var addBtn = undefined;
-                var mainDiv = document.getElementById("main_div");
+                    let arrLength = meals.length;
+                    var mealDiv = undefined;
+                    var mealImg = undefined;
+                    var mealTitle = undefined;
+                    var mealDesc = undefined;
+                    var otherDesc = undefined;
+                    var calsDesc = undefined;
+                    var carbDesc = undefined;
+                    var addBtn = undefined;
+                    var imgDiv = undefined;
+                    var mealTitleDesc = undefined;
+                    var mealDetailsDiv = undefined;
+                    var mealDivWrapper = undefined;
+                    var mainDiv = document.getElementById('main_div');
 
                 for (let i=0 ; i < arrLength ; i++) {
                     
+                    mealDivWrapper = document.createElement("DIV");
+                    mealDivWrapper.classList.add("responsive");
                     mealDiv = document.createElement("DIV");
                     mealDiv.id = meals[i].id;
-                    mealDiv.classList.add("meal-div", "col-12", "col-md-6", "col-lg-4", "col-xl-3");
+                    mealDiv.classList.add("meal-div", "d-flex", "flex-row", "flex-md-column");
+                    
                     mealImg = document.createElement("IMG");
                     mealImg.src = meals[i].img;
+                   
                     mealDiv.appendChild(mealImg);
 
+                    mealDetailsDiv = document.createElement("DIV");
+                    mealDetailsDiv.classList.add("meal-detail-div");
                     mealTitle = document.createElement("P");
                     mealTitle.classList.add("title");
                     mealTitle.innerHTML = meals[i].title;
-                    mealDiv.appendChild(mealTitle);
+                    mealDetailsDiv.appendChild(mealTitle);
 
                     mealDesc = document.createElement("P");
                     mealDesc.classList.add("desc");
                     mealDesc.innerHTML = meals[i].desc;
-                    mealDiv.appendChild(mealDesc);
+                    mealDetailsDiv.appendChild(mealDesc);
 
                     otherDesc = document.createElement("SMALL");
                     otherDesc.classList.add("desc-2");
                     otherDesc.innerHTML = meals[i].other_desc;
-                    mealDiv.appendChild(otherDesc);
+                    mealDetailsDiv.appendChild(otherDesc);
 
                     calsDesc = document.createElement("SMALL");
                     calsDesc.classList.add("cals");
                     calsDesc.innerHTML = meals[i].cals + "Cals";
-                    mealDiv.appendChild(calsDesc);
+                    mealDetailsDiv.appendChild(calsDesc);
 
                     carbDesc = document.createElement("SMALL");
                     carbDesc.classList.add("carbs");
                     carbDesc.innerHTML = meals[i].carb + "g Carbs";
-                    mealDiv.appendChild(carbDesc);
+                    mealDetailsDiv.appendChild(carbDesc);
 
-                    addBtn = document.createElement("INPUT");
+                    addBtn = document.createElement("BUTTON");
                     addBtn.classList.add("add-btn");
                     addBtn.type = "button";
-                    addBtn.value = "+ Add";
+                    addBtn.innerHTML = "+ Add";
                     addBtn.addEventListener("click", function(){
                             addToCart(meals[i].id);
                     });
 
+                    mealDiv.appendChild(mealDetailsDiv);
                     mealDiv.appendChild(addBtn);
-                    mainDiv.appendChild(mealDiv);
+                    mealDivWrapper.appendChild(mealDiv);
+                    mainDiv.appendChild(mealDivWrapper);
                 }
             });
 
@@ -198,30 +226,32 @@
     </head>
     <body>
         <div class="container-fluid">
-            <div id="cart_wrapper">
-                <div id="delivery_date">
-                    <div>
-                        <span id="date_message"></span>
+            <div class="d-flex flex-md-row-reverse">
+                <div id="cart_wrapper">
+                    <div id="delivery_date">
+                        <div>
+                            <span id="date_message"></span>
+                        </div>
+                    </div>
+                
+                    <div id = "cart">
+                        <p id="cart_message" class="text-center mt-5 pt-5">Get started by adding your meals.</p>
+                    </div>
+                    <div id = "meal_count_desc">
+                        <div>
+                            <span id="meal_counter">0</span><span id="meals_count"></span>
+                        </div>
+                        <div class="btn-div">
+                            <button class = "checkout-btn" type="button" id="next" onclick="checkout()" disabled>Next</button>
+                        </div>
+                        <div>
+                            <span id="meal_count_message"></span>
+                        </div>
                     </div>
                 </div>
-               
-                <div id = "cart">
-                    <p id="cart_message" class="text-center mt-5 pt-5">Get started by adding your meals.</p>
-                </div>
-                <div id = "meal_count_desc">
-                    <div>
-                        <span id="meal_counter">0</span><span id="meals_count"></span>
-                    </div>
-                    <div class="btn-div">
-                        <button class = "checkout-btn" type="button" id="next" onclick="checkout()" disabled>Next</button>
-                    </div>
-                    <div>
-                        <span id="meal_count_message"></span>
-                    </div>
-                </div>
-            </div>
-            <div id="main_div" class="row">
+                <div id="main_div" class="d-flex flex-wrap">
             
+                </div>
             </div>
         </div>
     </body>

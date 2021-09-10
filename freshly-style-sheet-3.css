@@ -2,41 +2,70 @@ body{
   background-color: #f9f9ec;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+.responsive {
+  padding: 0 6px;
+  float: left;
+  width: 24.99999%;
+}
+@media only screen and (max-width: 1200px) {
+  .responsive {
+    width: 33.33333%;
+    margin: 6px 0;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .responsive {
+    width: 49.99999%;
+    margin: 6px 0;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .responsive {
+    width: 100%;
+  }
+}
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 #main_div{
-  display: flex;
-  flex-wrap: wrap;
-  overflow-y: auto;
-  height: 100%;
+  overflow-y: scroll;
+  height: calc(100vh);
 }
 
 div.meal-div {
+  position: relative;
+  width: 100%;
   margin: 10px;
   border: 1px solid #ccc;
-  float: left;
-  max-width: 350px;
   transition: background-color 0.3s ease;
   background-color: white;
   cursor: pointer;
 }
-@media only screen and (max-width: 974px) {
-  .meal-div {
-    max-width: 600px;
-    width: 100%;
-  }
-}
+
+
+
 div.meal-div:hover {
   background-color: #f2f2f2;
 }
 
 div.meal-div img {
-  width: 100%;
+  max-width: 300px;
+  height: auto;
 }
-
 .title{
   font-weight: 500;
   font-size: 18px;
   margin: 20px 0 0 20px;
 }
+
 .desc{
   margin-left: 20px;
   color: #717171;
@@ -76,15 +105,17 @@ div.meal-div img {
   line-height: 14px;
 }
 .add-btn{
+  box-sizing: border-box;
   background-color: #0066ff;
   color:white;
   border: none;
   font-size: 18px;
   font-weight: 600;
-  float: right;
-  width: 80px;
-  height: 45px;
-  margin-right: 20px;
+  min-width: 45px;
+  min-height: 30px;
+  position: absolute;
+  right:0;
+  bottom: 20;
   transition: background-color 0.3s ease;
 }
 
@@ -93,23 +124,22 @@ div.meal-div img {
 }
 
 #cart_wrapper {
-  min-width: 344px;
-  height: 100%;
-  float: right;
+  min-width: 300px;
   background-color: #f2f2f2;
+  border-left: 1px solid gray;
 }
 
 #cart{
   display: block;
   overflow-y: auto;
-  height: 80%;
+  height: calc(100vh - 160px);
 }
 
 .cart-div {
   display: flex;
   margin: 10px;
   border: 1px solid #ccc;
-  width: 350px;
+  width: 275px;
   height: 110px;
   background-color: white;
   align-items: center;

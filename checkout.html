@@ -15,6 +15,7 @@
                 var mealsCount = JSON.parse(reterivedObject);
 
                 var myMeals = document.getElementById("meals_count");
+
                 for (var mealId in mealsCount){
 
                     const mealObj = meals.find(({id}) => id===mealId);
@@ -52,20 +53,20 @@
         </script>
     </head>
     <body>
-        <div class="container">
+        <div class="container-fluid">
             
-            <div class="row">
-                <div class="col-12 col-md-7 mt-5">
+            <div class="d-flex flex-column-reverse flex-md-row justify-content-center ml-lg-5 mr-lg-5" id="checkout_container">
+                <div class="mt-5 ml-lg-5">
                     <h4 class="font-weight-bold ">Checkout</h4>
-                    <form id="checkout_form" class="mt-4">
+                    <form id="checkout_form" class="mt-4 mr-md-2 pl-md-5 pr-md-5 pt-3 pb-3 pl-sm-2 pr-sm-2">
                         <h5 class="font-weight-bold">Delivery Address</h5>
                         <div class="form-row mt-4">
-                            <div class=" form-group col-6">
+                            <div class=" form-group col-12 col-md-6 ">
                                 <label for="fname" class="control-label font-weight-bold">First Name</label>
                                 <input type="text" class="form-control" id="fname" required>
                                 <div class="invalid-feedback">Can't be blank</div>
                             </div>
-                            <div class=" form-group col-6">
+                            <div class=" form-group col-12 col-md-6">
                                 <label for="lname" class="control-label font-weight-bold">Last Name</label>
                                 <input type="text" class="form-control" id="lname" required>
                                 <div class="invalid-feedback">Can't be blank</div>
@@ -96,15 +97,15 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class=" form-group col-5">
+                            <div class=" form-group col-12 col-md-5">
                                 <label for="city" class="control-label font-weight-bold">City</label>
                                 <input type="text" class="form-control" id="city">
                             </div>
-                            <div class=" form-group col-4">
+                            <div class=" form-group col-6 col-md-4">
                                 <label for="state" class="control-label font-weight-bold">State</label>
                                 <input type="text" class="form-control" id="state">  
                             </div>
-                            <div class=" form-group col-3">
+                            <div class=" form-group col-6 col-md-3">
                                 <label for="zip" class="control-label font-weight-bold">Zip</label>
                                 <input type="number" class="form-control" id="zip">  
                             </div>
@@ -135,7 +136,7 @@
                         <button class="mt-2" type="button" id="next_btn">Next</button>
                     </form>
                 </div>
-                <div class="col-12 col-md-5 mt-5">
+                <div class="mt-5 ml-md-2 mr-lg-5">
                     <h4 class="font-weight-bold">Order Summary</h4>
                     <div id="order_summary" class="mt-4">
                         <p><a href="#"><u>+ Add Promo Code</u></a></p>
