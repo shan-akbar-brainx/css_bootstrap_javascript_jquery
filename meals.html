@@ -141,6 +141,17 @@
                         $("#cart").show();
                         $("#delivery_date").show();
                     }
+					if(windowWidth < 375){
+						$(".carbs").hide();
+					}else{
+						$(".carbs").show();
+					}
+					
+					if(windowWidth < 335){
+						$(".cals").hide();
+					}else{
+						$(".cals").show();
+					}
                 }
 
             $(document).ready(function(){
@@ -166,6 +177,7 @@
                     var mealDetailsDiv = undefined;
                     var mealDivWrapper = undefined;
                     var mainDiv = document.getElementById('main_div');
+					var imgDivWrapper = undefined;
 
                 for (let i=0 ; i < arrLength ; i++) {
                     
@@ -175,10 +187,14 @@
                     mealDiv.id = meals[i].id;
                     mealDiv.classList.add("meal-div", "d-flex", "flex-row", "flex-md-column");
                     
-                    mealImg = document.createElement("IMG");
-                    mealImg.src = meals[i].img;
                    
-                    mealDiv.appendChild(mealImg);
+					imgDiv = document.createElement("DIV");
+					imgDivWrapper = document.createElement("DIV");
+					imgDivWrapper.classList.add("img-div-wrapper");
+					imgDiv.style.backgroundImage="url("+meals[i].img+")";
+					imgDiv.classList.add("img-div");
+					imgDivWrapper.appendChild(imgDiv);
+                    mealDiv.appendChild(imgDivWrapper);
 
                     mealDetailsDiv = document.createElement("DIV");
                     mealDetailsDiv.classList.add("meal-detail-div");

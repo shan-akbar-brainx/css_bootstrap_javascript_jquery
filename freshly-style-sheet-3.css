@@ -28,7 +28,9 @@ body{
   .responsive {
     width: 100%;
   }
+
 }
+
 .clearfix:after {
   content: "";
   display: table;
@@ -49,15 +51,32 @@ div.meal-div {
   background-color: white;
   cursor: pointer;
 }
+.img-div-wrapper{
+	display: block;
+	position: relative !important;
+	max-width: 30%;
+    min-width: 130px;
+    min-height: 160px;
+}
 
-
+.img-div{
+	position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    transition: opacity .2s;
+}
 
 div.meal-div:hover {
   background-color: #f2f2f2;
 }
 
 div.meal-div img {
-  max-width: 300px;
+  width: 100%;
   height: auto;
 }
 .title{
@@ -82,6 +101,13 @@ div.meal-div img {
   width: 45px;
   border-right: 1px solid lightgray;
   line-height: 14px;
+}
+
+@media (min-width: 768px){
+	.img-div-wrapper{
+		min-height: 190px;
+		max-width: none;
+	}
 }
 .cals{
   display: inline-block;
