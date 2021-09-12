@@ -132,6 +132,7 @@
                     }
                 }
                 function adjustContent(windowWidth){
+
                     if(windowWidth <= 767){
                         $("#cart_wrapper").addClass("fixed-bottom");
                         $("#cart").hide();
@@ -141,7 +142,7 @@
                         $("#cart").show();
                         $("#delivery_date").show();
                     }
-					if(windowWidth < 375){
+					if(windowWidth < 375 || (windowWidth > 992 && windowWidth < 1045) || (windowWidth > 768 && windowWidth < 812)){
 						$(".carbs").hide();
 					}else{
 						$(".carbs").show();
@@ -175,9 +176,13 @@
                     var imgDiv = undefined;
                     var mealTitleDesc = undefined;
                     var mealDetailsDiv = undefined;
+                    var mealDetailsDiv2 = undefined;
                     var mealDivWrapper = undefined;
+                    var imgDivWrapper = undefined;
+                    var mealDetailsWrapper = undefined;
+                    var nutritionDetailsDiv = undefined;
                     var mainDiv = document.getElementById('main_div');
-					var imgDivWrapper = undefined;
+					
 
                 for (let i=0 ; i < arrLength ; i++) {
                     
@@ -196,7 +201,10 @@
 					imgDivWrapper.appendChild(imgDiv);
                     mealDiv.appendChild(imgDivWrapper);
 
+                    mealDetailsWrapper = document.createElement("DIV");
                     mealDetailsDiv = document.createElement("DIV");
+                    mealDetailsDiv2 = document.createElement("DIV");
+                    nutritionDetailsDiv = document.createElement("DIV");
                     mealDetailsDiv.classList.add("meal-detail-div");
                     mealTitle = document.createElement("P");
                     mealTitle.classList.add("title");
@@ -211,28 +219,31 @@
                     otherDesc = document.createElement("SMALL");
                     otherDesc.classList.add("desc-2");
                     otherDesc.innerHTML = meals[i].other_desc;
-                    mealDetailsDiv.appendChild(otherDesc);
+                    nutritionDetailsDiv.appendChild(otherDesc);
 
                     calsDesc = document.createElement("SMALL");
                     calsDesc.classList.add("cals");
                     calsDesc.innerHTML = meals[i].cals + "Cals";
-                    mealDetailsDiv.appendChild(calsDesc);
+                    nutritionDetailsDiv.appendChild(calsDesc);
 
                     carbDesc = document.createElement("SMALL");
                     carbDesc.classList.add("carbs");
                     carbDesc.innerHTML = meals[i].carb + "g Carbs";
-                    mealDetailsDiv.appendChild(carbDesc);
-
-                    addBtn = document.createElement("BUTTON");
+                    nutritionDetailsDiv.appendChild(carbDesc);
+                    
+                    addBtn = document.createElement("DIV");
                     addBtn.classList.add("add-btn");
-                    addBtn.type = "button";
                     addBtn.innerHTML = "+ Add";
                     addBtn.addEventListener("click", function(){
                             addToCart(meals[i].id);
                     });
-
-                    mealDiv.appendChild(mealDetailsDiv);
-                    mealDiv.appendChild(addBtn);
+                    mealDetailsDiv2.classList.add("meal-detail-div2");
+                    mealDetailsWrapper.classList.add("meal-detail-wrapper");
+                    mealDetailsDiv2.appendChild(nutritionDetailsDiv);
+                    mealDetailsDiv2.appendChild(addBtn);
+                    mealDetailsWrapper.appendChild(mealDetailsDiv);
+                    mealDetailsWrapper.appendChild(mealDetailsDiv2);
+                    mealDiv.appendChild(mealDetailsWrapper);
                     mealDivWrapper.appendChild(mealDiv);
                     mainDiv.appendChild(mealDivWrapper);
                 }
@@ -241,7 +252,7 @@
         </script>
     </head>
     <body>
-        <div class="container-fluid">
+        
             <div class="d-flex flex-md-row-reverse">
                 <div id="cart_wrapper">
                     <div id="delivery_date">
@@ -265,10 +276,10 @@
                         </div>
                     </div>
                 </div>
-                <div id="main_div" class="d-flex flex-wrap">
+                <div id="main_div" class="d-flex flex-wrap justify-content-center pr-3">
             
                 </div>
             </div>
-        </div>
+       
     </body>
 </html>

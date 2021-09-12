@@ -7,10 +7,12 @@ body{
 }
 
 .responsive {
-  padding: 0 6px;
+  display: flex;
+  padding: 6px 6px;
   float: left;
   width: 24.99999%;
 }
+
 @media only screen and (max-width: 1200px) {
   .responsive {
     width: 33.33333%;
@@ -38,14 +40,13 @@ body{
 }
 
 #main_div{
-  overflow-y: scroll;
+  overflow-y: auto;
   height: calc(100vh);
 }
 
 div.meal-div {
-  position: relative;
   width: 100%;
-  margin: 10px;
+  height: 100%;
   border: 1px solid #ccc;
   transition: background-color 0.3s ease;
   background-color: white;
@@ -55,20 +56,20 @@ div.meal-div {
 	display: block;
 	position: relative !important;
 	max-width: 30%;
-    min-width: 130px;
-    min-height: 160px;
+  min-width: 130px;
+  min-height: 160px;
 }
 
 .img-div{
 	position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-size: cover;
-    background-position: 50%;
-    background-repeat: no-repeat;
-    transition: opacity .2s;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  transition: opacity .2s;
 }
 
 div.meal-div:hover {
@@ -79,21 +80,48 @@ div.meal-div img {
   width: 100%;
   height: auto;
 }
+
+@media (min-width: 768px){
+	.img-div-wrapper{
+		min-height: 190px;
+		max-width: none;
+	}
+}
+.meal-detail-wrapper{
+  display: flex;
+  width: 100%;
+  padding: 20px;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.meal-detail-div{
+
+}
+
 .title{
   font-weight: 500;
+  margin-bottom: 0;
   font-size: 18px;
-  margin: 20px 0 0 20px;
 }
 
 .desc{
-  margin-left: 20px;
   color: #717171;
   font-weight: 400;
   font-size: 14px;
 }
+
+.meal-detail-div2{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .desc-2{
   display: inline-block;
-  margin: 15px 0 15px 20px;
   color:#717171;
   font-weight: 400;
   font-size: 14px;
@@ -102,16 +130,9 @@ div.meal-div img {
   border-right: 1px solid lightgray;
   line-height: 14px;
 }
-
-@media (min-width: 768px){
-	.img-div-wrapper{
-		min-height: 190px;
-		max-width: none;
-	}
-}
 .cals{
   display: inline-block;
-  margin: 15px 0 15px 3px;
+  margin-left: 3px;
   color:#717171;
   font-weight: 400;
   font-size: 14px;
@@ -122,7 +143,7 @@ div.meal-div img {
 }
 .carbs{
   display: inline-block;
-  margin: 15px 0 15px 3px;
+  margin-left: 3px;
   color:#717171;
   font-weight: 400;
   font-size: 14px;
@@ -133,15 +154,13 @@ div.meal-div img {
 .add-btn{
   box-sizing: border-box;
   background-color: #0066ff;
+  padding: 5px 10px 5px;
   color:white;
   border: none;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
-  min-width: 45px;
-  min-height: 30px;
-  position: absolute;
-  right:0;
-  bottom: 20;
+  width: fit-content;
+  height: fit-content;
   transition: background-color 0.3s ease;
 }
 
