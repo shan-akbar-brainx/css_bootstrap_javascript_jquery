@@ -74,3 +74,7 @@ body{
      font-weight: 500;
      font-size: 18px;
   }
+
+  .my-custom-tooltip{
+    cursor: pointer;
+  }

@@ -11,6 +11,7 @@
         <script src="mealsdata.js"></script>
         <script>
             $(document).ready(function(){
+                $('[data-toggle="tooltip"]').tooltip();
                 var reterivedObject = localStorage.getItem("mealCount");
                 var mealsCount = JSON.parse(reterivedObject);
 
@@ -18,7 +19,7 @@
 
                 for (var mealId in mealsCount){
 
-                    const mealObj = meals.find(({id}) => id===mealId);
+                    const mealObj = meals.find(({id}) => id === mealId);
                     
                     var mealItem = document.createElement("DIV");
                     mealItem.classList.add("meal-div");
@@ -120,6 +121,18 @@
                             <div class=" form-group col-12">
                                 <input type="checkbox" id="check2">
                                 <label for="check2" class="control-label font-weight-bold">Receive SMS text message updates on my orders</label>
+                                <svg class="my-custom-tooltip" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" data-toggle="tooltip" data-placement="top" 
+                                title="SMS text messages will be sent through an automatic telephone dialing system. This service is optional,
+                                 and is not a condition of purchase. You can opt-out of receiving SMS messages at any time by texting STOP. Message
+                                  and data rates may apply.">
+                                    <g fill-rule="nonzero" fill="none">
+                                    <circle cx="10" cy="10" r="9" stroke="#717171" >
+                                    </circle>
+                                    <text fill="#717171" font-family="Roboto-Black, Roboto" font-size="11" font-weight="700">
+                                        <tspan x="8.751" y="13.5">i</tspan>
+                                    </text>
+                                    </g>
+                                </svg>
                             </div>
                         </div>
                         <div class="form-row">
