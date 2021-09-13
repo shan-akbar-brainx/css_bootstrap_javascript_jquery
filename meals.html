@@ -131,6 +131,7 @@
                         $("#cart_message").hide();
                     }
                 }
+
                 function adjustContent(windowWidth){
 
                     if(windowWidth <= 767){
@@ -156,12 +157,15 @@
                 }
 
             $(document).ready(function(){
+
                 var windowWidth = $(window).width();
                 adjustContent(windowWidth);
+
                 $(window).resize(function(){
                     var windowWidth = $(window).width();
                     adjustContent(windowWidth);
                 });
+
                 setMessages();
 
                     let arrLength = meals.length;
@@ -206,6 +210,7 @@
                     mealDetailsDiv2 = document.createElement("DIV");
                     nutritionDetailsDiv = document.createElement("DIV");
                     mealDetailsDiv.classList.add("meal-detail-div");
+                    
                     mealTitle = document.createElement("P");
                     mealTitle.classList.add("title");
                     mealTitle.innerHTML = meals[i].title;
@@ -234,9 +239,11 @@
                     addBtn = document.createElement("DIV");
                     addBtn.classList.add("add-btn");
                     addBtn.innerHTML = "+ Add";
+
                     addBtn.addEventListener("click", function(){
                             addToCart(meals[i].id);
                     });
+
                     mealDetailsDiv2.classList.add("meal-detail-div2");
                     mealDetailsWrapper.classList.add("meal-detail-wrapper");
                     mealDetailsDiv2.appendChild(nutritionDetailsDiv);
