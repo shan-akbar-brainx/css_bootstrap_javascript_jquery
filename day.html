@@ -1,0 +1,115 @@
+<html>
+    <head>
+        <title>Day</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="freshly-style-sheet-2.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+        <script>
+            //array to store dates
+            const dateArray = [];
+
+            function redirect(){
+                var listItem_id = undefined;
+                $("ul").children().each(function (index){
+                    if($(this).hasClass("active")){
+                        listItem_id = $(this).attr("id");
+                    }
+                });
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const meals = urlParams.get('meals');
+                const dateObj = dateArray.find(({id}) => id===listItem_id);
+
+                window.location.href = "meals.html?meals=" + meals + "&day=" + dateObj.day + "&month=" + dateObj.month + "&dateNo=" + dateObj.dateNo;
+
+            }
+
+            $(document).ready(function(){
+
+                var date = Date.now();
+                var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                date = date + 10*24*60*60*1000;
+                var newDate = new Date(date);
+                var month = newDate.toLocaleString('default', { month: 'short' });
+                var day = days[newDate.getDay()];
+                var dateNo = newDate.getDate();
+                var itr = 1;
+
+                $("ul").children().each(function (index) {
+                    var fullDate = "<span><b>"+day+"</b>, "+month+" "+dateNo + "</span>";
+                    var dateObj = {
+                        id: "date_"+(index+1),
+                        day: day,
+                        month: month,
+                        dateNo: dateNo
+                    }
+
+                    $(this).attr('id', dateObj.id);
+                    dateArray.push(dateObj);
+                    $(this).append(fullDate);
+                    
+                        if(index == 0){
+                            var flameIcon = '<i class="fal fa-fire-alt"> 4 spots left</i>';
+                            $(this).append(flameIcon);
+                            $(this).addClass("active");
+                            $("#small_p").html("First Delivery Date: " + fullDate);
+                        }
+                    
+                
+                    if(itr == 2){
+                        date = date + 5*24*60*60*1000;
+                    }else{
+                        date = date + 1*24*60*60*1000;
+                    }
+                    newDate = new Date(date);
+                    month = newDate.toLocaleString('default', { month: 'short' });
+                    day = days[newDate.getDay()];
+                    dateNo = newDate.getDate();
+
+                    ++itr;
+                    itr = itr % 3;
+                });
+
+                $("li").click(function(){
+                    $("li").removeClass("active");
+                    this.classList.add("active");
+                    $("#small_p").text("First Delivery Date: "+$(this).children("span").text());
+                });
+                
+                $("#next").click(function(){
+                    $("#next").css("box-shadow","0 0 0 3px skyblue");
+                    $("#next").css("background-color","#002db3");
+                });
+               
+            });
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <h1 id="first_heading" class="text-center">Choose A Delivery Day</h1>
+            <div id="main_div">
+                <div id="div_list">
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+                <small>Scroll for more delivery dates</small>
+                <button type="button" id="next" onclick = "redirect()" value="">Next</button>
+                <small id="small_p" class="font-weight-bold"></small>
+            </div>
+        </div>
+        <embed class="mt-5" type="text/html" src="freshlyfaqs.html"  width="100%" height="100%">
+    </body>
+</html>

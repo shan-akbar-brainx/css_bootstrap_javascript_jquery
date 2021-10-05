@@ -1,0 +1,292 @@
+<html>
+    <head> <title>Meals</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+        <script src="mealsdata.js"></script>
+        <link rel="stylesheet" href="freshly-style-sheet-3.css">
+        
+        <script>
+            const cartItems = [];
+            var mealsNumber = 0;
+            var mealsCount = 0;
+
+            function checkout(){
+                const mealCount = {};
+
+              $("#cart").children().each(function (index){
+                  if(index){//skipping first item as it is not a meal (hidden message)
+                    if(mealCount[$(this).attr("data-id")]){
+                        mealCount[$(this).attr("data-id")]++;
+                    }else{
+                        mealCount[$(this).attr("data-id")] = 1;
+                    }
+                  }
+              });
+              localStorage.setItem('mealCount', JSON.stringify(mealCount));
+              window.location.href = "checkout.html";
+            }
+
+            function mealsValidation(){
+
+                if( mealsCount == mealsNumber){
+                    
+                    $("#meal_counter").css("color","#0066ff");
+                    $("#meal_count_message").html('<i class="fas fa-check"></i><span> All Set!</span>');
+                    $("#next").prop('disabled', false);
+                }
+                
+                if(mealsCount > mealsNumber){
+                    
+                    $("#meal_counter").css("color", "red");
+                    $("#meal_count_message").text('Remove '+ (mealsCount-mealsNumber) + " meals to continue.");
+                    $("#next").prop('disabled', true);
+                }
+
+                if(mealsCount < mealsNumber){
+                    
+                    $("#meal_counter").css("color", "red");
+                    $("#meal_count_message").text('Add '+ (mealsNumber - mealsCount) + " meals to continue.");
+                    $("#next").prop('disabled', true);
+                }
+
+            }
+            function setMessages(){
+
+                const urlParams = new URLSearchParams(window.location.search);
+                const meals = urlParams.get('meals');
+                mealsNumber = meals;
+                const day = urlParams.get('day');
+                const month = urlParams.get('month');
+                const dateNo = urlParams.get('dateNo');
+                var deliveryDate = "My delivery for: <b>" + day + ", " + month + " " + dateNo;
+                $("#date_message").html(deliveryDate);
+                $("#meals_count").text("/" + meals);
+                $("#meal_count_message").text("Add " + meals + " meals to continue.")
+
+            }
+
+            function addToCart(Id){
+
+                const mealObj = meals.find(({id}) => id===Id);
+                var cartItem = document.createElement("DIV");
+                cartItem.classList.add("cart-div");
+                cartItem.dataset.id = Id;
+
+                var itemImg = document.createElement("IMG");
+                var imgDiv = document.createElement("DIV");
+                imgDiv.appendChild(itemImg);
+                itemImg.src = mealObj.img;
+                cartItem.appendChild(itemImg);
+
+                var itemTitle = document.createElement("DIV");
+                itemTitle.classList.add("meal-title");
+                itemTitle.innerHTML = mealObj.title;
+                cartItem.appendChild(itemTitle);
+
+                var btnDiv = document.createElement("DIV");
+                btnDiv.classList.add("cart-buttons");
+                var addBtnDiv = document.createElement("DIV");
+                addBtnDiv.innerHTML = "+";
+                addBtnDiv.addEventListener("click", function(){
+                    addToCart(Id);
+                });
+
+                btnDiv.appendChild(addBtnDiv);
+                var removeBtnDiv = document.createElement("DIV");
+                removeBtnDiv.innerHTML = "-";
+                removeBtnDiv.addEventListener("click", function(){
+
+                    this.parentElement.parentElement.remove();
+                    mealsCount -= 1;
+                    $("#meal_counter").text(mealsCount)
+                    mealsValidation();
+
+                    if(mealsCount == 0){
+                        $("#cart_message").show();
+                    }else{
+                        $("#cart_message").hide();
+                    }
+                    
+                });
+
+                btnDiv.appendChild(removeBtnDiv);
+                cartItem.appendChild(btnDiv);
+                var cart = document.getElementById("cart");
+                
+                cart.appendChild(cartItem);
+                mealsCount += 1;
+                $("#meal_counter").text(mealsCount)
+
+                mealsValidation();
+
+                if(mealsCount == 0){
+                        $("#cart_message").show();
+                    }else{
+                        $("#cart_message").hide();
+                    }
+                }
+
+                function adjustContent(windowWidth){
+
+                    if(windowWidth <= 767){
+                        $("#cart_wrapper").addClass("fixed-bottom");
+                        $("#cart").hide();
+                        $("#delivery_date").hide();
+                    }else{
+                        $("#cart_wrapper").removeClass("fixed-bottom");
+                        $("#cart").show();
+                        $("#delivery_date").show();
+                    }
+					if(windowWidth < 375 || (windowWidth > 992 && windowWidth < 1045) || (windowWidth > 768 && windowWidth < 812)){
+						$(".carbs").hide();
+					}else{
+						$(".carbs").show();
+					}
+					
+					if(windowWidth < 335){
+						$(".cals").hide();
+					}else{
+						$(".cals").show();
+					}
+                }
+
+            $(document).ready(function(){
+
+                var windowWidth = $(window).width();
+                adjustContent(windowWidth);
+
+                $(window).resize(function(){
+                    var windowWidth = $(window).width();
+                    adjustContent(windowWidth);
+                });
+
+                setMessages();
+
+                    let arrLength = meals.length;
+                    var mealDiv = undefined;
+                    var mealImg = undefined;
+                    var mealTitle = undefined;
+                    var mealDesc = undefined;
+                    var otherDesc = undefined;
+                    var calsDesc = undefined;
+                    var carbDesc = undefined;
+                    var addBtn = undefined;
+                    var imgDiv = undefined;
+                    var mealTitleDesc = undefined;
+                    var mealDetailsDiv = undefined;
+                    var mealDetailsDiv2 = undefined;
+                    var mealDivWrapper = undefined;
+                    var imgDivWrapper = undefined;
+                    var mealDetailsWrapper = undefined;
+                    var nutritionDetailsDiv = undefined;
+                    var mainDiv = document.getElementById('main_div');
+					
+
+                for (let i=0 ; i < arrLength ; i++) {
+                    
+                    mealDivWrapper = document.createElement("DIV");
+                    mealDivWrapper.classList.add("responsive");
+                    mealDiv = document.createElement("DIV");
+                    mealDiv.id = meals[i].id;
+                    mealDiv.classList.add("meal-div", "d-flex", "flex-row", "flex-md-column");
+                    
+                   
+					imgDiv = document.createElement("DIV");
+					imgDivWrapper = document.createElement("DIV");
+					imgDivWrapper.classList.add("img-div-wrapper");
+					imgDiv.style.backgroundImage="url("+meals[i].img+")";
+					imgDiv.classList.add("img-div");
+					imgDivWrapper.appendChild(imgDiv);
+                    mealDiv.appendChild(imgDivWrapper);
+
+                    mealDetailsWrapper = document.createElement("DIV");
+                    mealDetailsDiv = document.createElement("DIV");
+                    mealDetailsDiv2 = document.createElement("DIV");
+                    nutritionDetailsDiv = document.createElement("DIV");
+                    mealDetailsDiv.classList.add("meal-detail-div");
+                    
+                    mealTitle = document.createElement("P");
+                    mealTitle.classList.add("title");
+                    mealTitle.innerHTML = meals[i].title;
+                    mealDetailsDiv.appendChild(mealTitle);
+
+                    mealDesc = document.createElement("P");
+                    mealDesc.classList.add("desc");
+                    mealDesc.innerHTML = meals[i].desc;
+                    mealDetailsDiv.appendChild(mealDesc);
+
+                    otherDesc = document.createElement("SMALL");
+                    otherDesc.classList.add("desc-2");
+                    otherDesc.innerHTML = meals[i].other_desc;
+                    nutritionDetailsDiv.appendChild(otherDesc);
+
+                    calsDesc = document.createElement("SMALL");
+                    calsDesc.classList.add("cals");
+                    calsDesc.innerHTML = meals[i].cals + "Cals";
+                    nutritionDetailsDiv.appendChild(calsDesc);
+
+                    carbDesc = document.createElement("SMALL");
+                    carbDesc.classList.add("carbs");
+                    carbDesc.innerHTML = meals[i].carb + "g Carbs";
+                    nutritionDetailsDiv.appendChild(carbDesc);
+                    
+                    addBtn = document.createElement("DIV");
+                    addBtn.classList.add("add-btn");
+                    addBtn.innerHTML = "+ Add";
+
+                    addBtn.addEventListener("click", function(){
+                            addToCart(meals[i].id);
+                    });
+
+                    mealDetailsDiv2.classList.add("meal-detail-div2");
+                    mealDetailsWrapper.classList.add("meal-detail-wrapper");
+                    mealDetailsDiv2.appendChild(nutritionDetailsDiv);
+                    mealDetailsDiv2.appendChild(addBtn);
+                    mealDetailsWrapper.appendChild(mealDetailsDiv);
+                    mealDetailsWrapper.appendChild(mealDetailsDiv2);
+                    mealDiv.appendChild(mealDetailsWrapper);
+                    mealDivWrapper.appendChild(mealDiv);
+                    mainDiv.appendChild(mealDivWrapper);
+                }
+            });
+
+        </script>
+    </head>
+    <body>
+        
+            <div class="d-flex flex-md-row-reverse">
+                <div id="cart_wrapper">
+                    <div id="delivery_date">
+                        <div>
+                            <span id="date_message"></span>
+                        </div>
+                    </div>
+                
+                    <div id = "cart">
+                        <p id="cart_message" class="text-center mt-5 pt-5">Get started by adding your meals.</p>
+                    </div>
+                    <div id = "meal_count_desc">
+                        <div>
+                            <span id="meal_counter">0</span><span id="meals_count"></span>
+                        </div>
+                        <div class="btn-div">
+                            <button class = "checkout-btn" type="button" id="next" onclick="checkout()" disabled>Next</button>
+                        </div>
+                        <div>
+                            <span id="meal_count_message"></span>
+                        </div>
+                    </div>
+                </div>
+                <div id="main_div" class="d-flex flex-wrap justify-content-center pr-3">
+            
+                </div>
+            </div>
+       
+    </body>
+</html>
